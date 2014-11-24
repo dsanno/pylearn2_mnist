@@ -26,3 +26,7 @@ Execute test_dae.py
 
 Execute test_result.py to recognize test data and output result.  
 result is (Number of correctly recognized data) / (Number of total test data)
+
+## Show error data
+
+Execute show_error_data.py to show data incorrectly recognized.
