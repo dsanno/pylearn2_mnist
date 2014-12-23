@@ -2,10 +2,17 @@ import numpy as np
 import pickle
 import theano
 import pylearn2.datasets.mnist as mnist
-
+from pylearn2.space import VectorSpace
 
 def simulate(inputs, model):
-    return model.fprop(theano.shared(inputs)).eval()
+    space = VectorSpace(inputs.shape[1])
+    X = space.get_theano_batch()
+    Y = model.fprop(space.format_as(X, model.get_input_space()))
+    f = theano.function([X], Y)
+    result = []
+    for x in xrange(0, len(inputs), 100):
+      result.extend(f(inputs[x:x + 100]))
+    return result
 
 def countCorrectResults(outputs, labels):
     correct = 0;
